@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <title>ЄВГЕНІЯ & ІВАН — 21.08.2026</title>
+<link rel="icon" type="image/png" href="https://img.icons8.com/color/48/wedding-rings.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@200;300;400;500;600&family=Great+Vibes&family=Marck+Script&display=swap" rel="stylesheet">
 <style>
@@ -284,12 +285,113 @@ body {
   font-weight: 300;
 }
 .cd.emp { visibility: hidden; }
+
+/* базова клітинка дати */
 .cd.hl {
-  border: 1.5px solid rgba(255,255,255,.9);
+  position: relative;
   color: #fff;
   font-weight: 600;
-  background: rgba(255,255,255,.15);
+  font-size: .78rem;
+  border: 1.5px solid rgba(255,255,255,.85);
+  border-radius: 50%;
+  max-width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(.6);
+  transition: opacity .5s ease, transform .5s ease;
+  overflow: visible;
 }
+.cd.hl.vis {
+  opacity: 1;
+  transform: scale(1);
+  animation: pulse-ring 2.2s ease-in-out 1s infinite;
+}
+@keyframes pulse-ring {
+  0%,100% { box-shadow: 0 0 0 0 rgba(255,255,255,.35); }
+  50%      { box-shadow: 0 0 0 5px rgba(255,255,255,0); }
+}
+
+/* кільце — абсолютно над числом, не впливає на layout */
+.cd.hl .ring-icon {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px; height: 14px;
+  background-image: url('https://img.icons8.com/ios/50/diamond-ring.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: invert(1) brightness(2);
+  opacity: .85;
+  pointer-events: none;
+  animation: ring-rock 3s ease-in-out infinite;
+}
+@keyframes ring-rock {
+  0%,100% { transform: translateX(-50%) rotate(-12deg); }
+  50%     { transform: translateX(-50%) rotate(12deg); }
+}
+
+/* число — завжди по центру */
+.cd.hl .date-num {
+  font-size: .78rem;
+  font-weight: 600;
+  line-height: 1;
+  color: #fff;
+}
+
+/* countdown reveal */
+.reveal-cd {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.reveal-cd.vis { opacity: 1; transform: translateY(0); }
+
+/* кольори — викочуються по черзі */
+.sw {
+  width: 88px; height: 88px;
+  border-radius: 50%;
+  box-shadow: 0 6px 24px rgba(0,0,0,.18);
+  cursor: default;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(0) rotate(-180deg);
+  transition: opacity .5s ease, transform .5s ease, box-shadow .3s;
+}
+.sw.vis { opacity: 1; transform: scale(1) rotate(0deg); }
+.sw:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 10px 32px rgba(0,0,0,.22); }
+
+/* деталі — перший зліва, другий справа, третій знизу */
+.details-text {
+  font-size: .82rem;
+  line-height: 2;
+  color: rgba(255,255,255,.8);
+  max-width: 400px;
+  margin: 0 auto;
+  opacity: 0;
+  transition: opacity .7s ease, transform .7s ease;
+}
+.details-text:nth-child(1)  { transform: translateX(-40px); }
+.details-text:nth-child(3)  { transform: translateX(40px); }
+.details-text:nth-child(5)  { transform: translateY(30px); }
+.details-text.vis { opacity: 1; transform: translate(0,0) !important; }
+
+.details-sep {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px auto;
+  max-width: 320px;
+  opacity: 0;
+  transform: scaleX(0);
+  transition: opacity .5s ease, transform .5s ease;
+  transform-origin: center;
+}
+.details-sep.vis { opacity: 1; transform: scaleX(1); }
 
 /* ══════════════════════════════════
    ПРОГРАМА — вертикальний таймлайн
@@ -305,7 +407,11 @@ body {
   color: #fff;
   text-align: center;
   margin-bottom: 52px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .6s ease, transform .6s ease;
 }
+.prog-title.show { opacity:1; transform:translateY(0); }
 
 .timeline {
   position: relative;
@@ -313,7 +419,7 @@ body {
   margin: 0 auto;
 }
 
-/* вертикальна лінія по центру */
+/* вертикальна лінія — малюється зверху вниз */
 .timeline::before {
   content: '';
   position: absolute;
@@ -322,7 +428,11 @@ body {
   width: 1px;
   background: rgba(255,255,255,.18);
   transform: translateX(-50%);
+  transform-origin: top;
+  scale: 1 0;
+  transition: scale .8s .2s ease;
 }
+.timeline.line-vis::before { scale: 1 1; }
 
 .tl-item {
   display: grid;
@@ -330,13 +440,9 @@ body {
   align-items: center;
   gap: 0;
   padding: 28px 0;
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity .5s ease, transform .5s ease;
 }
-.tl-item.show { opacity:1; transform:translateY(0); }
 
-/* ліва колонка — назва */
+/* ліва колонка — назва з'являється зліва */
 .tl-label {
   text-align: right;
   padding-right: 24px;
@@ -345,9 +451,13 @@ body {
   letter-spacing: .22em;
   text-transform: uppercase;
   color: rgba(255,255,255,.65);
+  opacity: 0;
+  transform: translateX(-24px);
+  transition: opacity .5s ease, transform .5s ease;
 }
+.tl-item.show .tl-label { opacity:1; transform:translateX(0); }
 
-/* центр — іконка на лінії */
+/* центр — іконка з'являється зверху */
 .tl-icon-wrap {
   position: relative;
   z-index: 2;
@@ -359,14 +469,19 @@ body {
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+  opacity: 0;
+  transform: translateY(-16px) scale(.7);
+  transition: opacity .45s .12s ease, transform .45s .12s ease;
 }
+.tl-item.show .tl-icon-wrap { opacity:1; transform:translateY(0) scale(1); }
+
 .tl-icon-wrap img {
   width: 20px; height: 20px;
   filter: invert(1) brightness(1);
   opacity: .8;
 }
 
-/* права колонка — час */
+/* права колонка — час з'являється справа */
 .tl-time {
   text-align: left;
   padding-left: 24px;
@@ -375,7 +490,11 @@ body {
   font-weight: 300;
   color: #fff;
   letter-spacing: .04em;
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity .5s ease, transform .5s ease;
 }
+.tl-item.show .tl-time { opacity:1; transform:translateX(0); }
 
 /* ══════════════════════════════════
    ЛОКАЦІЯ — рожева картка
@@ -383,8 +502,7 @@ body {
 .loc-section { padding: 0 24px 56px; }
 
 .loc-text-wrap {
-  text-align: left;
-  padding-right: 16px;
+  text-align: center;
 }
 
 .loc-intro {
@@ -392,15 +510,19 @@ body {
   color: rgba(255,255,255,.85);
   line-height: 1.9;
   margin-bottom: 2px;
+  text-align: center;
 }
 .loc-name {
-  font-size: .92rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: #fff;
   margin-bottom: 2px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.4rem;
 }
 
-/* layout всередині картки: текст зліва, фото справа */
+/* layout всередині картки — центрований */
 .loc-inner {
   display: flex;
   align-items: center;
@@ -409,13 +531,24 @@ body {
   flex-wrap: wrap;
 }
 
-/* ТУТ ФОТО РЕСТОРАНУ
-   Розкоментуй і вкажи src= до свого фото */
 .loc-photo {
-  width: 140px; height: 140px;
+  width: 200px; height: 200px;
   object-fit: cover;
-  border-radius: 12px;
-  flex-shrink: 0;
+  border-radius: 16px;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 8px 32px rgba(0,0,0,.25);
+}
+
+/* анімація при скролі для елементів локації */
+.loc-anim {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.loc-anim.vis {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .loc-btn {
@@ -429,7 +562,7 @@ body {
   padding: 10px 28px;
   border-radius: 50px;
   text-decoration: none;
-  transition: all .3s;
+  transition: background .3s, opacity .6s ease, transform .6s ease;
   background: transparent;
 }
 .loc-btn:hover { background: rgba(255,255,255,.2); }
@@ -467,17 +600,9 @@ body {
 .swatches {
   display: flex;
   justify-content: center;
-  gap: 6px;
+  gap: 10px;
   flex-wrap: wrap;
 }
-.sw {
-  width: 54px; height: 54px;
-  border-radius: 50%;
-  box-shadow: 0 3px 14px rgba(0,0,0,.2);
-  transition: transform .3s;
-  cursor: default;
-}
-.sw:hover { transform: scale(1.1); }
 
 /* ══════════════════════════════════
    ДЕТАЛІ — темна картка
@@ -491,13 +616,6 @@ body {
   margin-bottom: 24px;
 }
 
-.details-sep {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 22px auto;
-  max-width: 320px;
-}
 .details-sep-line {
   flex: 1;
   height: 1px;
@@ -508,14 +626,6 @@ body {
   font-size: .65rem;
   letter-spacing: .1em;
   flex-shrink: 0;
-}
-
-.details-text {
-  font-size: .82rem;
-  line-height: 2;
-  color: rgba(255,255,255,.8);
-  max-width: 400px;
-  margin: 0 auto;
 }
 
 /* ══════════════════════════════════
@@ -549,11 +659,19 @@ body {
 .cd-row {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   gap: 0;
   flex-wrap: wrap;
 }
-.cd-cell { text-align: center; padding: 0 14px; min-width: 64px; }
+.cd-cell {
+  text-align: center;
+  padding: 0 14px;
+  min-width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
 .cd-num {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(3.5rem, 12vw, 6.5rem);
@@ -563,12 +681,13 @@ body {
   display: block;
 }
 .cd-unit {
-  font-size: .48rem;
-  letter-spacing: .18em;
+  font-size: .5rem;
+  letter-spacing: .2em;
   text-transform: uppercase;
   color: rgba(255,255,255,.55);
-  margin-top: 4px;
   display: block;
+  line-height: 1;
+  white-space: nowrap;
 }
 .cd-sep {
   font-family: 'Cormorant Garamond', serif;
@@ -576,8 +695,8 @@ body {
   font-weight: 300;
   color: rgba(255,255,255,.5);
   line-height: 1;
-  padding-top: 0;
   align-self: flex-start;
+  padding-bottom: 24px;
 }
 
 /* ══════════════════════════════════
@@ -787,7 +906,7 @@ body {
       <div class="hero-date-year">2026</div>
     </div>
     <div class="hero-save">Save the Date</div>
-    <audio id="bgAudio" loop>
+    <audio id="bgAudio" loop autoplay>
       <source src="song.mp3" type="audio/mpeg">
     </audio>
     <button class="music-btn" id="musicBtn" onclick="toggleMusic()">включити пісню</button>
@@ -816,7 +935,7 @@ body {
       <div class="cd">10</div><div class="cd">11</div><div class="cd">12</div>
       <div class="cd">13</div><div class="cd">14</div><div class="cd">15</div><div class="cd">16</div>
       <div class="cd">17</div><div class="cd">18</div><div class="cd">19</div>
-      <div class="cd">20</div><div class="cd hl">21</div><div class="cd">22</div><div class="cd">23</div>
+      <div class="cd">20</div><div class="cd hl"><span class="ring-icon"></span><span class="date-num">21</span></div><div class="cd">22</div><div class="cd">23</div>
       <div class="cd">24</div><div class="cd">25</div><div class="cd">26</div>
       <div class="cd">27</div><div class="cd">28</div><div class="cd">29</div><div class="cd">30</div>
       <div class="cd">31</div>
@@ -861,22 +980,22 @@ body {
 
 <!-- ══════════ ЛОКАЦІЯ (рожева картка) ══════════ -->
 <section class="loc-section section">
-  <div class="pink-card reveal">
-    <div class="invite-title" style="margin-bottom:24px">Локація</div>
-    <div class="loc-inner">
-      <div class="loc-text-wrap">
-        <p class="loc-intro">Святкування проходитиме<br>у комплексі:</p>
-        <p class="loc-name">«Срібні Лелеки»</p>
-        <p class="loc-intro" style="font-size:.74rem;margin-top:4px">вул. В'ячеслава Чорновола, 17<br>Луцьк</p>
-      </div>
-      <!--
-        ФОТО РЕСТОРАНУ: збережи фото поруч із файлом і розкоментуй:
-        <img src="ресторан.jpg" alt="Срібні Лелеки" class="loc-photo">
-        і видали .loc-photo-placeholder нижче
-      -->
-      <img src="https://www.wedding-invitation.website/wp-content/uploads/2025/06/photo_2025-06-11_14-27-51.jpg" alt="Срібні Лелеки" class="loc-photo">
+  <div class="pink-card">
+    <div class="invite-title loc-anim" style="margin-bottom:20px">Локація</div>
+
+    <img src="https://www.wedding-invitation.website/wp-content/uploads/2025/06/photo_2025-06-11_14-27-51.jpg"
+         alt="Срібні Лелеки" class="loc-photo loc-anim" style="transition-delay:.15s">
+
+    <div class="loc-anim" style="transition-delay:.25s; margin: 20px 0 6px;">
+      <p class="loc-intro" style="margin-bottom:4px">Святкування проходитиме у комплексі:</p>
+      <p class="loc-name">«Срібні Лелеки»</p>
+      <p class="loc-intro" style="font-size:.75rem; margin-top:4px; opacity:.8">
+        вул. В'ячеслава Чорновола, 17 · Луцьк
+      </p>
     </div>
-    <a href="https://maps.google.com/?q=вул.+В'ячеслава+Чорновола+17+Луцьк" target="_blank" class="loc-btn">
+
+    <a href="https://maps.google.com/?q=вул.+В'ячеслава+Чорновола+17+Луцьк"
+       target="_blank" class="loc-btn loc-anim" style="transition-delay:.35s">
       Переглянути на мапі
     </a>
   </div>
@@ -890,9 +1009,8 @@ body {
     ви оберете наряди у кольорах нашого весілля:
   </p>
   <div class="swatches">
-    <div class="sw" style="background:linear-gradient(135deg,#f5e8e0,#e8d4c8)"></div>
     <div class="sw" style="background:linear-gradient(135deg,#f8f8f8,#eeeeee); border:1px solid #ddd;"></div>
-    <div class="sw" style="background:linear-gradient(135deg,#d4b090,#b89070)"></div>
+    <div class="sw" style="background:linear-gradient(135deg,#f5e8e0,#e8d4c8)"></div>
     <div class="sw" style="background:linear-gradient(135deg,#c9878d,#a06070)"></div>
     <div class="sw" style="background:linear-gradient(135deg,#b8b8b8,#909090)"></div>
     <div class="sw" style="background:linear-gradient(135deg,#303030,#1a1a1a)"></div>
@@ -927,24 +1045,24 @@ body {
 <section class="countdown-section">
   <div class="countdown-bg"></div>
   <div class="countdown-content">
-    <div class="cd-title">Чекаємо на Вас через:</div>
+    <div class="cd-title reveal-cd">Чекаємо на Вас через:</div>
     <div class="cd-row">
-      <div class="cd-cell">
+      <div class="cd-cell reveal-cd" style="transition-delay:.1s">
         <span class="cd-num" id="cdD">—</span>
         <span class="cd-unit">Днів</span>
       </div>
-      <div class="cd-sep">:</div>
-      <div class="cd-cell">
+      <div class="cd-sep reveal-cd" style="transition-delay:.15s">:</div>
+      <div class="cd-cell reveal-cd" style="transition-delay:.2s">
         <span class="cd-num" id="cdH">—</span>
         <span class="cd-unit">Годин</span>
       </div>
-      <div class="cd-sep">:</div>
-      <div class="cd-cell">
+      <div class="cd-sep reveal-cd" style="transition-delay:.25s">:</div>
+      <div class="cd-cell reveal-cd" style="transition-delay:.3s">
         <span class="cd-num" id="cdM">—</span>
         <span class="cd-unit">Хвилин</span>
       </div>
-      <div class="cd-sep">:</div>
-      <div class="cd-cell">
+      <div class="cd-sep reveal-cd" style="transition-delay:.35s">:</div>
+      <div class="cd-cell reveal-cd" style="transition-delay:.4s">
         <span class="cd-num" id="cdS">—</span>
         <span class="cd-unit">Секунд</span>
       </div>
@@ -967,7 +1085,7 @@ body {
 <!-- ══════════ АНКЕТА (білий фон) ══════════ -->
 <section class="form-section">
   <div class="form-title reveal">Анкета Гостя</div>
-  <span class="form-arrow">⌄⌄</span>
+  <span class="form-arrow" style="display:none"></span>
 
   <!--
     FORMSPREE ІНСТРУКЦІЯ:
@@ -1076,6 +1194,42 @@ function toggleMusic() {
   }
 }
 
+// Autoplay as soon as possible
+(function() {
+  const audio = document.getElementById('bgAudio');
+  const btn = document.getElementById('musicBtn');
+
+  function setPlaying() {
+    btn.textContent = 'зупинити пісню';
+    btn.classList.add('on');
+  }
+
+  // If autoplay attribute already started it
+  if (!audio.paused) {
+    setPlaying();
+    return;
+  }
+
+  // Try immediate autoplay
+  audio.play().then(setPlaying).catch(() => {
+    // Browser blocked — play on very first interaction
+    const tryPlay = () => {
+      audio.play().then(setPlaying).catch(() => {});
+    };
+    document.addEventListener('click',      tryPlay, { once: true, passive: true });
+    document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
+    document.addEventListener('scroll',     tryPlay, { once: true, passive: true });
+    document.addEventListener('keydown',    tryPlay, { once: true });
+  });
+
+  // Also check after page fully loads
+  window.addEventListener('load', () => {
+    if (audio.paused) {
+      audio.play().then(setPlaying).catch(() => {});
+    }
+  });
+})();
+
 /* ВІДЛІК */
 function tick() {
   const t = new Date('2026-08-21T14:30:00');
@@ -1084,33 +1238,121 @@ function tick() {
     ['cdD','cdH','cdM','cdS'].forEach(id => document.getElementById(id).textContent = '00');
     return;
   }
-  const p = (v, n=2) => String(v).padStart(n, '0');
-  document.getElementById('cdD').textContent = p(Math.floor(d/86400000), 3);
-  document.getElementById('cdH').textContent = p(Math.floor(d%86400000/3600000));
-  document.getElementById('cdM').textContent = p(Math.floor(d%3600000/60000));
-  document.getElementById('cdS').textContent = p(Math.floor(d%60000/1000));
+  const p2 = v => String(v).padStart(2, '0');
+  // Дні — без ведучого нуля
+  document.getElementById('cdD').textContent = Math.floor(d/86400000);
+  document.getElementById('cdH').textContent = p2(Math.floor(d%86400000/3600000));
+  document.getElementById('cdM').textContent = p2(Math.floor(d%3600000/60000));
+  document.getElementById('cdS').textContent = p2(Math.floor(d%60000/1000));
 }
 tick();
 setInterval(tick, 1000);
 
-/* SCROLL REVEAL */
+/* SCROLL REVEAL — додаємо до всіх секцій */
 const ro = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
-}, { threshold: .1 });
+}, { threshold: .08 });
 document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+// Також reveal для секцій які не мають класу reveal
+const allSections = document.querySelectorAll(
+  '.pink-card, .dark-card, .prog-section .prog-title, .countdown-content, .form-section, .ticker-bar, .dress-section, .loc-section .pink-card'
+);
+const sro = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: .08 });
+
+allSections.forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(28px)';
+  el.style.transition = 'opacity .7s ease, transform .7s ease';
+  sro.observe(el);
+});
 
 /* ТАЙМЛАЙН ПРОГРАМИ */
 const to = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
+      // заголовок
+      document.querySelector('.prog-title')?.classList.add('show');
+      // лінія
+      setTimeout(() => document.getElementById('timeline')?.classList.add('line-vis'), 200);
+      // пункти по черзі
       document.querySelectorAll('.tl-item').forEach((it, i) => {
-        setTimeout(() => it.classList.add('show'), i * 150);
+        setTimeout(() => it.classList.add('show'), 300 + i * 200);
       });
     }
   });
 }, { threshold: .1 });
 const tl = document.getElementById('timeline');
 if (tl) to.observe(tl);
+
+/* ЛОКАЦІЯ — анімація елементів */
+const locObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.loc-anim').forEach(el => el.classList.add('vis'));
+    }
+  });
+}, { threshold: .15 });
+const locSection = document.querySelector('.loc-section');
+if (locSection) locObs.observe(locSection);
+
+/* КАЛЕНДАР — дата появляється */
+const calObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      setTimeout(() => {
+        document.querySelector('.cd.hl')?.classList.add('vis');
+      }, 400);
+    }
+  });
+}, { threshold: .3 });
+const calGrid = document.querySelector('.cal-grid');
+if (calGrid) calObs.observe(calGrid);
+
+/* ВІДЛІК — кожна цифра появляється по черзі */
+const cdObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.reveal-cd').forEach(el => el.classList.add('vis'));
+    }
+  });
+}, { threshold: .15 });
+const cdSection = document.querySelector('.countdown-section');
+if (cdSection) cdObs.observe(cdSection);
+
+/* КОЛЬОРИ — викочуються по черзі знизу */
+const swObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.sw').forEach((sw, i) => {
+        setTimeout(() => sw.classList.add('vis'), i * 150);
+      });
+    }
+  });
+}, { threshold: .2 });
+const swSection = document.querySelector('.swatches');
+if (swSection) swObs.observe(swSection);
+
+/* ДЕТАЛІ — параграфи та роздільники по черзі */
+const detObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const items = document.querySelectorAll('.details-text, .details-sep');
+      items.forEach((el, i) => {
+        setTimeout(() => el.classList.add('vis'), i * 180);
+      });
+    }
+  });
+}, { threshold: .15 });
+const detSection = document.querySelector('.dark-card');
+if (detSection) detObs.observe(detSection);
 
 /* FORMSPREE */
 document.getElementById('rsvpForm').addEventListener('submit', async function(e) {
