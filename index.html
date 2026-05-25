@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title>ЄВГЕНІЯ & ІВАН — 21.08.2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@200;300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background: #ffffff;
+  color: #2a1a1a;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* ══════════════════════════════════
+   HERO — чорно-біле фото на весь екран
+   імена + дата по центру
+══════════════════════════════════ */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* чорно-біле фото — те саме що на сайті */
+.hero-bg {
+  position: absolute;
+  inset: -100px 0 -100px 0;
+  background-image: url('https://www.wedding-invitation.website/wp-content/uploads/2025/06/photo_2025-06-11_14-27-51.jpg');
+  background-size: cover;
+  background-position: center top;
+  filter: grayscale(100%) brightness(.75);
+  will-change: transform;
+  transition: transform .05s linear;
+}
+
+/* легкий темний оверлей для читабельності */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.18);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 20px;
+}
+
+/* маленький підпис імен зверху */
+.hero-names-top {
+  font-family: 'Montserrat', sans-serif;
+  font-size: .62rem;
+  font-weight: 400;
+  letter-spacing: .38em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 10px;
+  animation: fadeUp .8s .1s ease both;
+}
+
+/* велика дата — три рядки */
+.hero-date {
+  animation: fadeUp .8s .25s ease both;
+}
+.hero-date-day {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(5.5rem, 22vw, 11rem);
+  font-weight: 300;
+  line-height: .88;
+  color: #fff;
+  letter-spacing: -.01em;
+}
+.hero-date-month {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 8vw, 4.5rem);
+  font-weight: 300;
+  line-height: 1;
+  color: #fff;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.hero-date-year {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem, 14vw, 8rem);
+  font-weight: 300;
+  line-height: .95;
+  color: #fff;
+  letter-spacing: -.01em;
+}
+
+.hero-save {
+  font-family: 'Montserrat', sans-serif;
+  font-size: .6rem;
+  letter-spacing: .42em;
+  color: #fff;
+  margin-top: 16px;
+  animation: fadeUp .8s .4s ease both;
+}
+
+.music-btn {
+  margin-top: 20px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.65);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .58rem;
+  letter-spacing: .26em;
+  text-transform: lowercase;
+  padding: 9px 24px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all .3s;
+  animation: fadeUp .8s .55s ease both;
+}
+.music-btn:hover, .music-btn.on {
+  background: rgba(255,255,255,.2);
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(18px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ══════════════════════════════════
+   РОЖЕВА КАРТКА — базовий стиль
+══════════════════════════════════ */
+.pink-card {
+  background: #c9878d; /* пиловий рожево-ліловий як на оригіналі */
+  border-radius: 48px;
+  padding: 48px 40px;
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+  color: #fff;
+}
+
+/* темна картка (деталі) */
+.dark-card {
+  background: #2d2424;
+  border-radius: 48px;
+  padding: 48px 40px;
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+  color: #fff;
+}
+
+/* ══════════════════════════════════
+   СЕКЦІЇ — відступи
+══════════════════════════════════ */
+.section { padding: 60px 24px; }
+.section-wide { padding: 60px 24px; max-width: 800px; margin: 0 auto; }
+
+/* ══════════════════════════════════
+   ЗАПРОШЕННЯ + КАЛЕНДАР (рожева картка)
+══════════════════════════════════ */
+.invite-section { padding: 56px 24px 0; }
+
+.invite-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.6rem, 7vw, 3.8rem);
+  color: #fff;
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+
+.invite-text {
+  font-size: .82rem;
+  line-height: 2;
+  color: rgba(255,255,255,.9);
+  max-width: 400px;
+  margin: 0 auto 32px;
+}
+
+/* ── КАЛЕНДАР всередині рожевої картки ── */
+.cal-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 16px;
+}
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  text-align: center;
+  max-width: 340px;
+  margin: 0 auto;
+}
+.ch {
+  font-size: .55rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.7);
+  padding: 6px 0;
+  font-weight: 500;
+}
+.cd {
+  font-size: .75rem;
+  padding: 5px 2px;
+  color: rgba(255,255,255,.75);
+  border-radius: 50%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1px auto;
+  max-width: 28px;
+  font-weight: 300;
+}
+.cd.emp { visibility: hidden; }
+.cd.hl {
+  border: 1.5px solid rgba(255,255,255,.9);
+  color: #fff;
+  font-weight: 600;
+  background: rgba(255,255,255,.15);
+}
+
+/* ══════════════════════════════════
+   ПРОГРАМА — вертикальний таймлайн
+══════════════════════════════════ */
+.prog-section {
+  background: #2a2020;
+  padding: 64px 24px;
+}
+
+.prog-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.4rem, 7vw, 3.4rem);
+  color: #fff;
+  text-align: center;
+  margin-bottom: 52px;
+}
+
+.timeline {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* вертикальна лінія по центру */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: rgba(255,255,255,.18);
+  transform: translateX(-50%);
+}
+
+.tl-item {
+  display: grid;
+  grid-template-columns: 1fr 56px 1fr;
+  align-items: center;
+  gap: 0;
+  padding: 28px 0;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.tl-item.show { opacity:1; transform:translateY(0); }
+
+/* ліва колонка — назва */
+.tl-label {
+  text-align: right;
+  padding-right: 24px;
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.65);
+}
+
+/* центр — іконка на лінії */
+.tl-icon-wrap {
+  position: relative;
+  z-index: 2;
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.3);
+  background: #2a2020;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+.tl-icon-wrap img {
+  width: 20px; height: 20px;
+  filter: invert(1) brightness(1);
+  opacity: .8;
+}
+
+/* права колонка — час */
+.tl-time {
+  text-align: left;
+  padding-left: 24px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.55rem;
+  font-weight: 300;
+  color: #fff;
+  letter-spacing: .04em;
+}
+
+/* ══════════════════════════════════
+   ЛОКАЦІЯ — рожева картка
+══════════════════════════════════ */
+.loc-section { padding: 0 24px 56px; }
+
+.loc-text-wrap {
+  text-align: left;
+  padding-right: 16px;
+}
+
+.loc-intro {
+  font-size: .82rem;
+  color: rgba(255,255,255,.85);
+  line-height: 1.9;
+  margin-bottom: 2px;
+}
+.loc-name {
+  font-size: .92rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+/* layout всередині картки: текст зліва, фото справа */
+.loc-inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+/* ТУТ ФОТО РЕСТОРАНУ
+   Розкоментуй і вкажи src= до свого фото */
+.loc-photo {
+  width: 140px; height: 140px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.loc-btn {
+  display: inline-block;
+  border: 1px solid rgba(255,255,255,.8);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .58rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  padding: 10px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all .3s;
+  background: transparent;
+}
+.loc-btn:hover { background: rgba(255,255,255,.2); }
+
+/* ══════════════════════════════════
+   ДРЕС-КОД — білий фон
+══════════════════════════════════ */
+.dress-section { padding: 56px 24px; text-align: center; }
+
+.sec-title-script {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  color: #2a1a1a;
+  margin-bottom: 6px;
+}
+
+.sec-title-serif {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+  font-style: italic;
+  color: #2a1a1a;
+  margin-bottom: 6px;
+}
+
+.dress-text {
+  font-size: .82rem;
+  line-height: 2;
+  color: #5a4040;
+  max-width: 420px;
+  margin: 0 auto 32px;
+}
+.dress-text strong { color: #2a1a1a; font-weight: 500; }
+
+/* кружечки тканини як на оригіналі */
+.swatches {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.sw {
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  box-shadow: 0 3px 14px rgba(0,0,0,.2);
+  transition: transform .3s;
+  cursor: default;
+}
+.sw:hover { transform: scale(1.1); }
+
+/* ══════════════════════════════════
+   ДЕТАЛІ — темна картка
+══════════════════════════════════ */
+.details-section { padding: 0 24px 56px; }
+
+.details-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.4rem, 7vw, 3.4rem);
+  color: #fff;
+  margin-bottom: 24px;
+}
+
+.heart-divider {
+  color: #fff;
+  font-size: 1rem;
+  margin: 16px 0;
+  opacity: .7;
+}
+
+.details-text {
+  font-size: .82rem;
+  line-height: 2;
+  color: rgba(255,255,255,.8);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* ══════════════════════════════════
+   ВІДЛІК — фонове фото рук
+══════════════════════════════════ */
+.countdown-section {
+  position: relative;
+  padding: 80px 24px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.countdown-bg {
+  position: absolute;
+  inset: -100px 0 -100px 0;
+  background-image: url('https://www.wedding-invitation.website/wp-content/uploads/2025/06/photo_2025-06-11_14-27-51.jpg');
+  background-size: cover;
+  background-position: center 30%;
+  filter: grayscale(100%) brightness(.45);
+  will-change: transform;
+}
+
+.countdown-content { position: relative; z-index: 2; }
+
+.cd-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2rem, 6vw, 3rem);
+  color: #fff;
+  margin-bottom: 28px;
+}
+.cd-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0;
+  flex-wrap: wrap;
+}
+.cd-cell { text-align: center; padding: 0 14px; min-width: 64px; }
+.cd-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem, 12vw, 6.5rem);
+  font-weight: 300;
+  color: #fff;
+  line-height: 1;
+  display: block;
+}
+.cd-unit {
+  font-size: .48rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+  margin-top: 4px;
+  display: block;
+}
+.cd-sep {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 10vw, 5.5rem);
+  font-weight: 300;
+  color: rgba(255,255,255,.5);
+  line-height: 1;
+  padding-top: 0;
+  align-self: flex-start;
+}
+
+/* ══════════════════════════════════
+   БІГУЧА СТРІЧКА
+══════════════════════════════════ */
+.ticker-bar {
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 12px 0;
+  background: #fff;
+  border-top: 1px solid #e8d8d8;
+  border-bottom: 1px solid #e8d8d8;
+}
+.ticker-inner {
+  display: inline-block;
+  animation: tickerMove 26s linear infinite;
+}
+.ticker-inner span {
+  font-size: .58rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: #b06070;
+  margin: 0 32px;
+}
+@keyframes tickerMove {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ══════════════════════════════════
+   АНКЕТА — білий фон, мінімалістично
+══════════════════════════════════ */
+.form-section { padding: 60px 24px; text-align: center; }
+
+.form-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.4rem, 7vw, 3.4rem);
+  color: #2a1a1a;
+  margin-bottom: 4px;
+}
+
+.form-arrow {
+  font-size: 1.1rem;
+  color: #b06070;
+  margin-bottom: 32px;
+  display: block;
+}
+
+.rsvp-form {
+  max-width: 560px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 32px;
+  text-align: left;
+}
+
+.f-group { display: flex; flex-direction: column; gap: 8px; }
+.f-group.full { grid-column: 1 / -1; }
+
+.f-label {
+  font-size: .6rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #b06070;
+  font-weight: 500;
+}
+
+.f-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #d8c8c8;
+  background: transparent;
+  padding: 10px 0;
+  color: #2a1a1a;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .82rem;
+  font-weight: 300;
+  outline: none;
+  transition: border-color .3s;
+}
+.f-input:focus { border-color: #b06070; }
+.f-input::placeholder { color: #b8a0a0; }
+
+.radio-col { display: flex; flex-direction: column; gap: 8px; }
+.check-col { display: flex; flex-direction: column; gap: 8px; }
+
+.opt-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .78rem;
+  color: #5a4040;
+  cursor: pointer;
+  user-select: none;
+}
+.opt-row input { accent-color: #b06070; width: 14px; height: 14px; cursor: pointer; }
+
+.submit-wrap {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.send-btn {
+  background: #c9878d;
+  border: none;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .62rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  padding: 13px 36px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all .3s;
+}
+.send-btn:hover { background: #b06070; transform: translateY(-1px); }
+.send-btn:disabled { opacity: .55; cursor: default; transform: none; }
+
+.form-done { display: none; padding: 40px 20px; text-align: center; }
+.form-done h3 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.8rem;
+  color: #b06070;
+  margin-bottom: 10px;
+}
+.form-done p { font-size: .82rem; color: #5a4040; line-height: 1.9; }
+
+/* ══════════════════════════════════
+   FOOTER — темний з фото
+══════════════════════════════════ */
+.footer {
+  position: relative;
+  padding: 80px 24px 64px;
+  text-align: center;
+  overflow: hidden;
+}
+.footer-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://www.wedding-invitation.website/wp-content/uploads/2025/06/photo_2025-06-11_14-27-51.jpg');
+  background-size: cover;
+  background-position: center 60%;
+  filter: grayscale(100%) brightness(.35);
+}
+.footer-content { position: relative; z-index: 2; }
+.footer-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.8rem, 8vw, 4.5rem);
+  color: #fff;
+  margin-bottom: 14px;
+}
+.footer-sub {
+  font-size: .6rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+  line-height: 2.2;
+}
+.footer-sub strong { color: rgba(255,255,255,.85); font-weight: 400; }
+
+/* ══════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .65s ease, transform .65s ease;
+}
+.reveal.vis { opacity:1; transform:translateY(0); }
+
+/* ══════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════ */
+@media (max-width: 520px) {
+  .pink-card, .dark-card { border-radius: 32px; padding: 36px 24px; }
+  .rsvp-form { grid-template-columns: 1fr; }
+  .submit-wrap { justify-content: center; }
+  .cd-sep { display: none; }
+  .cd-cell { min-width: 52px; }
+  .tl-item { grid-template-columns: 1fr 40px 1fr; }
+  .tl-label { font-size: .52rem; padding-right: 14px; }
+  .tl-time { font-size: 1.3rem; padding-left: 14px; }
+  .loc-inner { flex-direction: column; align-items: center; text-align: center; }
+  .loc-text-wrap { text-align: center; padding-right: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-names-top">ЄВГЕНІЯ &amp; ІВАН</div>
+    <div class="hero-date">
+      <div class="hero-date-day">21</div>
+      <div class="hero-date-month">СЕРПНЯ</div>
+      <div class="hero-date-year">26</div>
+    </div>
+    <div class="hero-save">Save the Date</div>
+    <audio id="bgAudio" loop>
+      <source src="song.mp3" type="audio/mpeg">
+    </audio>
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()">включити пісню</button>
+  </div>
+</section>
+
+<!-- ══════════ ЗАПРОШЕННЯ + КАЛЕНДАР (рожева картка) ══════════ -->
+<section class="invite-section section">
+  <div class="pink-card reveal">
+    <div class="invite-title">Любі Гості!</div>
+    <p class="invite-text">
+      Один день у цьому році буде для нас дуже особливим і ми хотіли би його провести у колі близьких для нас людей.<br><br>
+      З великим задоволенням запрошуємо вас відсвяткувати цей день разом!
+    </p>
+
+    <div class="cal-title">Серпень</div>
+    <div class="cal-grid">
+      <div class="ch">Пн</div><div class="ch">Вт</div><div class="ch">Ср</div>
+      <div class="ch">Чт</div><div class="ch">Пт</div><div class="ch">Сб</div><div class="ch">Нд</div>
+      <!-- 1 серп. 2026 = субота → 5 порожніх -->
+      <div class="cd emp"></div><div class="cd emp"></div><div class="cd emp"></div>
+      <div class="cd emp"></div><div class="cd emp"></div>
+      <div class="cd">1</div><div class="cd">2</div>
+      <div class="cd">3</div><div class="cd">4</div><div class="cd">5</div>
+      <div class="cd">6</div><div class="cd">7</div><div class="cd">8</div><div class="cd">9</div>
+      <div class="cd">10</div><div class="cd">11</div><div class="cd">12</div>
+      <div class="cd">13</div><div class="cd">14</div><div class="cd">15</div><div class="cd">16</div>
+      <div class="cd">17</div><div class="cd">18</div><div class="cd">19</div>
+      <div class="cd">20</div><div class="cd hl">21</div><div class="cd">22</div><div class="cd">23</div>
+      <div class="cd">24</div><div class="cd">25</div><div class="cd">26</div>
+      <div class="cd">27</div><div class="cd">28</div><div class="cd">29</div><div class="cd">30</div>
+      <div class="cd">31</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ПРОГРАМА — темний фон, таймлайн ══════════ -->
+<section class="prog-section">
+  <div class="prog-title">Програма дня</div>
+  <div class="timeline" id="timeline">
+    <div class="tl-item">
+      <div class="tl-label">Збір гостей</div>
+      <div class="tl-icon-wrap">
+        <img src="https://img.icons8.com/ios/50/wine-glass.png" alt="">
+      </div>
+      <div class="tl-time">14:30</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-label">Церемонія</div>
+      <div class="tl-icon-wrap">
+        <img src="https://img.icons8.com/ios/50/wedding-rings.png" alt="">
+      </div>
+      <div class="tl-time">15:00</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-label">Банкет</div>
+      <div class="tl-icon-wrap">
+        <img src="https://img.icons8.com/ios/50/meal.png" alt="">
+      </div>
+      <div class="tl-time">15:30</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-label">Торт</div>
+      <div class="tl-icon-wrap">
+        <img src="https://img.icons8.com/ios/50/wedding-cake.png" alt="">
+      </div>
+      <div class="tl-time">21:00</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ЛОКАЦІЯ (рожева картка) ══════════ -->
+<section class="loc-section section">
+  <div class="pink-card reveal">
+    <div class="invite-title" style="margin-bottom:24px">Локація</div>
+    <div class="loc-inner">
+      <div class="loc-text-wrap">
+        <p class="loc-intro">Святкування проходитиме<br>у комплексі:</p>
+        <p class="loc-name">«Срібні Лелеки»</p>
+        <p class="loc-intro" style="font-size:.74rem;margin-top:4px">вул. В'ячеслава Чорновола, 17<br>Луцьк</p>
+      </div>
+      <!--
+        ФОТО РЕСТОРАНУ: збережи фото поруч із файлом і розкоментуй:
+        <img src="ресторан.jpg" alt="Срібні Лелеки" class="loc-photo">
+        і видали .loc-photo-placeholder нижче
+      -->
+      <img src="https://www.wedding-invitation.website/wp-content/uploads/2025/06/photo_2025-06-11_14-27-51.jpg" alt="Срібні Лелеки" class="loc-photo">
+    </div>
+    <a href="https://maps.google.com/?q=вул.+В'ячеслава+Чорновола+17+Луцьк" target="_blank" class="loc-btn">
+      Переглянути на мапі
+    </a>
+  </div>
+</section>
+
+<!-- ══════════ ДРЕС-КОД (білий фон) ══════════ -->
+<section class="dress-section reveal">
+  <div class="sec-title-script">Дрес-код</div>
+  <p class="dress-text">
+    Ми будемо дуже вдячні, якщо<br>
+    ви оберете наряди у кольорах нашого весілля:
+  </p>
+  <div class="swatches">
+    <div class="sw" style="background:linear-gradient(135deg,#f5e8e0,#e8d4c8)"></div>
+    <div class="sw" style="background:linear-gradient(135deg,#d4b090,#b89070)"></div>
+    <div class="sw" style="background:linear-gradient(135deg,#a06840,#7a4820)"></div>
+    <div class="sw" style="background:linear-gradient(135deg,#c0909c,#a07080)"></div>
+    <div class="sw" style="background:linear-gradient(135deg,#b8b8b8,#909090)"></div>
+    <div class="sw" style="background:linear-gradient(135deg,#303030,#1a1a1a)"></div>
+  </div>
+</section>
+
+<!-- ══════════ ДЕТАЛІ (темна картка) ══════════ -->
+<section class="details-section section">
+  <div class="dark-card reveal">
+    <div class="details-title">Деталі</div>
+    <p class="details-text">Просимо вас не дарувати нам квіти, ми не встигнемо насолодитися їх красою.</p>
+    <div class="heart-divider">♥</div>
+    <p class="details-text">Приємним компліментом для нас буде, якщо ви замість квітів вирішите подарувати нам пляшку алкогольного напою для нашої колекції, яку ми відкриємо на найближчому нашому святі.</p>
+    <div class="heart-divider">♥</div>
+    <p class="details-text">Якщо ви хочете подарувати нам цінний та потрібний подарунок, ми будемо дуже вдячні за вклад у бюджет нашої молодої сім'ї.</p>
+  </div>
+</section>
+
+<!-- ══════════ ВІДЛІК (фото рук на фоні) ══════════ -->
+<section class="countdown-section">
+  <div class="countdown-bg"></div>
+  <div class="countdown-content">
+    <div class="cd-title">Чекаємо на Вас через:</div>
+    <div class="cd-row">
+      <div class="cd-cell">
+        <span class="cd-num" id="cdD">—</span>
+        <span class="cd-unit">Днів</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-cell">
+        <span class="cd-num" id="cdH">—</span>
+        <span class="cd-unit">Годин</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-cell">
+        <span class="cd-num" id="cdM">—</span>
+        <span class="cd-unit">Хвилин</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-cell">
+        <span class="cd-num" id="cdS">—</span>
+        <span class="cd-unit">Секунд</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ БІГУЧА СТРІЧКА ══════════ -->
+<div class="ticker-bar">
+  <div class="ticker-inner">
+    <span>Wedding Day 21.08.2026 — You're Invited 🤍</span>
+    <span>Save the Date 🤍 Євгенія &amp; Іван 🤍</span>
+    <span>Чекаємо на вас — 21 серпня 2026 🤍</span>
+    <span>Wedding Day 21.08.2026 — You're Invited 🤍</span>
+    <span>Save the Date 🤍 Євгенія &amp; Іван 🤍</span>
+    <span>Чекаємо на вас — 21 серпня 2026 🤍</span>
+  </div>
+</div>
+
+<!-- ══════════ АНКЕТА (білий фон) ══════════ -->
+<section class="form-section">
+  <div class="form-title reveal">Анкета Гостя</div>
+  <span class="form-arrow">⌄⌄</span>
+
+  <!--
+    FORMSPREE ІНСТРУКЦІЯ:
+    1. Зайди на https://formspree.io → зареєструйся (безкоштовно)
+    2. "+ New Form" → скопіюй ID (виглядає як: xpwzabcd)
+    3. Заміни YOUR_FORMSPREE_ID нижче на свій ID
+  -->
+  <form class="rsvp-form" id="rsvpForm"
+        action="https://formspree.io/f/mbdbabgv"
+        method="POST">
+
+    <div class="f-group full">
+      <label class="f-label">Ваше ім'я та прізвище</label>
+      <input type="text" name="name" class="f-input" placeholder="Ваше ім'я та прізвище" required>
+    </div>
+
+    <div class="f-group">
+      <label class="f-label">Чи плануєте ви бути на весіллі?</label>
+      <div class="radio-col">
+        <label class="opt-row">
+          <input type="radio" name="attending" value="Так, із задоволенням!" required> Так, із задоволенням!
+        </label>
+        <label class="opt-row">
+          <input type="radio" name="attending" value="На жаль, не зможу"> На жаль, не зможу
+        </label>
+      </div>
+    </div>
+
+    <div class="f-group">
+      <label class="f-label">Вкажіть побажання по напоям:</label>
+      <div class="check-col">
+        <label class="opt-row"><input type="checkbox" name="drinks" value="Вино біле"> Вино біле</label>
+        <label class="opt-row"><input type="checkbox" name="drinks" value="Вино червоне"> Вино червоне</label>
+        <label class="opt-row"><input type="checkbox" name="drinks" value="Горілка"> Горілка</label>
+        <label class="opt-row"><input type="checkbox" name="drinks" value="Коньяк"> Коньяк</label>
+        <label class="opt-row"><input type="checkbox" name="drinks" value="Шампанське"> Шампанське</label>
+        <label class="opt-row"><input type="checkbox" name="drinks" value="Віскі"> Віскі</label>
+      </div>
+    </div>
+
+    <div class="submit-wrap">
+      <button type="submit" class="send-btn" id="sendBtn">Відправити</button>
+    </div>
+  </form>
+
+  <div class="form-done" id="formDone">
+    <h3>Дякуємо!</h3>
+    <p>Ваша відповідь прийнята.<br>Чекаємо вас 21 серпня 2026!</p>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="footer">
+  <div class="footer-bg"></div>
+  <div class="footer-content">
+    <div class="footer-title">Святкуйте З Нами!</div>
+    <div class="footer-sub">
+      Будь ласка, відгукніться до <strong>1 серпня 2026</strong><br>
+      <span style="letter-spacing:.5em;font-size:.65rem;color:rgba(255,255,255,.7);">ЧЕКАЄМО НА ВАС</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════ SCRIPTS ══════════ -->
+<script>
+/* ПАРАЛАКС при скролі */
+(function() {
+  const heroBg = document.querySelector('.hero-bg');
+  const cdBg   = document.querySelector('.countdown-bg');
+
+  function onScroll() {
+    const sy = window.scrollY;
+    if (heroBg) heroBg.style.transform = `translateY(${sy * 0.38}px)`;
+    if (cdBg) {
+      const cdTop = cdBg.parentElement.getBoundingClientRect().top + sy;
+      const offset = (sy - cdTop) * 0.28;
+      cdBg.style.transform = `translateY(${offset}px)`;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+/* МУЗИКА */
+function toggleMusic() {
+  const a = document.getElementById('bgAudio');
+  const b = document.getElementById('musicBtn');
+  if (a.paused) {
+    a.play().catch(() => {});
+    b.textContent = 'зупинити пісню';
+    b.classList.add('on');
+  } else {
+    a.pause();
+    b.textContent = 'включити пісню';
+    b.classList.remove('on');
+  }
+}
+
+/* ВІДЛІК */
+function tick() {
+  const t = new Date('2026-08-21T14:30:00');
+  const d = t - new Date();
+  if (d <= 0) {
+    ['cdD','cdH','cdM','cdS'].forEach(id => document.getElementById(id).textContent = '00');
+    return;
+  }
+  const p = (v, n=2) => String(v).padStart(n, '0');
+  document.getElementById('cdD').textContent = p(Math.floor(d/86400000), 3);
+  document.getElementById('cdH').textContent = p(Math.floor(d%86400000/3600000));
+  document.getElementById('cdM').textContent = p(Math.floor(d%3600000/60000));
+  document.getElementById('cdS').textContent = p(Math.floor(d%60000/1000));
+}
+tick();
+setInterval(tick, 1000);
+
+/* SCROLL REVEAL */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: .1 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+/* ТАЙМЛАЙН ПРОГРАМИ */
+const to = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.tl-item').forEach((it, i) => {
+        setTimeout(() => it.classList.add('show'), i * 150);
+      });
+    }
+  });
+}, { threshold: .1 });
+const tl = document.getElementById('timeline');
+if (tl) to.observe(tl);
+
+/* FORMSPREE */
+document.getElementById('rsvpForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('sendBtn');
+  btn.textContent = 'Надсилаємо...';
+  btn.disabled = true;
+  try {
+    const r = await fetch(this.action, {
+      method: 'POST',
+      body: new FormData(this),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (r.ok) {
+      this.style.display = 'none';
+      document.getElementById('formDone').style.display = 'block';
+    } else {
+      btn.textContent = 'Помилка — спробуйте ще раз';
+      btn.disabled = false;
+    }
+  } catch {
+    btn.textContent = 'Помилка — спробуйте ще раз';
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
