@@ -438,21 +438,21 @@ body {
 
 .tl-item {
   display: grid;
-  grid-template-columns: 1fr 56px 1fr;
+  grid-template-columns: 1fr 80px 1fr;
   align-items: center;
   gap: 0;
-  padding: 28px 0;
+  padding: 32px 0;
 }
 
 /* ліва колонка — назва з'являється зліва */
 .tl-label {
   text-align: right;
-  padding-right: 24px;
+  padding-right: 20px;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.05rem;
+  font-size: 1.35rem;
   font-weight: 400;
   font-style: italic;
-  letter-spacing: .06em;
+  letter-spacing: .04em;
   text-transform: none;
   color: rgba(255,255,255,.72);
   opacity: 0;
@@ -465,7 +465,7 @@ body {
 .tl-icon-wrap {
   position: relative;
   z-index: 2;
-  width: 52px; height: 52px;
+  width: 64px; height: 64px;
   border-radius: 50%;
   border: 1.5px solid rgba(255,255,255,.35);
   background: rgba(255,255,255,.07);
@@ -490,12 +490,12 @@ body {
 }
 
 .tl-icon-wrap img {
-  width: 22px; height: 22px;
+  width: 28px; height: 28px;
   filter: invert(1) brightness(1);
   opacity: .85;
 }
 .tl-icon-wrap svg {
-  width: 22px; height: 22px;
+  width: 28px; height: 28px;
   opacity: .85;
   transition: transform .3s ease, opacity .3s ease;
 }
@@ -522,13 +522,13 @@ body {
 /* права колонка — час з'являється справа */
 .tl-time {
   text-align: left;
-  padding-left: 24px;
+  padding-left: 20px;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.9rem;
+  font-size: 2.2rem;
   font-weight: 300;
   font-style: italic;
   color: rgba(255,255,255,.95);
-  letter-spacing: .08em;
+  letter-spacing: .06em;
   opacity: 0;
   transform: translateX(24px);
   transition: opacity .5s ease, transform .5s ease;
@@ -918,9 +918,11 @@ body {
   .submit-wrap { justify-content: center; }
   .cd-sep { display: none; }
   .cd-cell { min-width: 52px; }
-  .tl-item { grid-template-columns: 1fr 40px 1fr; }
-  .tl-label { font-size: .52rem; padding-right: 14px; }
-  .tl-time { font-size: 1.3rem; padding-left: 14px; }
+  .tl-item { grid-template-columns: 1fr 70px 1fr; }
+  .tl-icon-wrap { width: 58px; height: 58px; }
+  .tl-icon-wrap svg { width: 26px; height: 26px; }
+  .tl-label { font-size: 1.2rem; padding-right: 12px; }
+  .tl-time { font-size: 1.9rem; padding-left: 12px; }
   .loc-inner { flex-direction: column; align-items: center; text-align: center; }
   .loc-text-wrap { text-align: center; padding-right: 0; }
 }
@@ -1070,7 +1072,7 @@ body {
   <div class="swatches">
     <div class="sw" style="background:linear-gradient(135deg,#f0e8d4,#e4dcc8)"></div>
     <div class="sw" style="background:linear-gradient(135deg,#f5bec8,#eaacb8)"></div>
-    <div class="sw" style="background:linear-gradient(135deg,#b8e0b0,#a0d098)"></div>
+    <div class="sw" style="background:linear-gradient(135deg,#c8d9a0,#b0c47e)"></div>
     <div class="sw" style="background:linear-gradient(135deg,#d4d4d8,#c4c4c8)"></div>
     <div class="sw" style="background:linear-gradient(135deg,#303030,#1a1a1a)"></div>
   </div>
